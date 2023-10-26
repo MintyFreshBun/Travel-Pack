@@ -1,12 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
 }
 
-.comp-init-pad {
-  padding: 6em;
-  border: 1px solid black;
+.border-custom {
+  border: 2px solid black;
   border-radius: 8px;
 }

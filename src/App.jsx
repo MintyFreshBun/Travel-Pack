@@ -1,21 +1,28 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
+import Form from "./components/Form";
+import Filters from "./components/Filters";
+import Status from "./components/Status";
+import ListRender from "./components/ListRender";
 
-function App() {
-  const [count, setCount] = useState(0);
-
+function App(props) {
   return (
-    <>
-      <div>
-        <h1 class="comp-init-pad">Header here</h1>
-        <div class="comp-init-pad"> Items insert</div>
-        {/* area for the items list display here*/}
+    <div className="todoapp stack-large">
+      <h1>Travel-Pack</h1>
 
-        {/* display progress*/}
-      </div>
-    </>
+      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+
+      {/* Form section for new Items */}
+      <Form />
+
+      {/* Filter component */}
+      <Filters />
+
+      {/*Task number status */}
+      <Status />
+
+      {/**Task list Render */}
+      <ListRender />
+    </div>
   );
 }
 
