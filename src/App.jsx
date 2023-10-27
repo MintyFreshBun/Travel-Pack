@@ -3,8 +3,9 @@ import Form from "./components/Form";
 import Filters from "./components/Filters";
 import Status from "./components/Status";
 import ListRender from "./components/ListRender";
+import { useState } from "react";
 
-function App(props) {
+function App() {
   // lets make a small list of task items to start
   const tempItems = [
     { id: 0, description: "Passport", quantity: 1, packed: false },
