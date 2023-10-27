@@ -1,18 +1,18 @@
-function Item(params) {
+function Item({ item }) {
+  // we want the items to have a name, status and quataty
+
   return (
-    <li className="todo stack-small">
-      <div className="c-cb">
-        <input id="todo-0" type="checkbox" defaultChecked={true} />
-        <label className="todo-label" htmlFor="todo-0">
-          Eat
-        </label>
-      </div>
-      <div className="btn-group">
-        <button type="button" className="btn">
-          Edit <span className="visually-hidden">Eat</span>
+    <li>
+      <input type="checkbox" value={item.packed} />
+      <span>
+        {item.quantity} {item.description}
+      </span>
+      <div className="btn-group btn-gap">
+        <button type="button" className="btn-primary">
+          Edit
         </button>
-        <button type="button" className="btn btn__danger">
-          Delete <span className="visually-hidden">Eat</span>
+        <button type="button" className="btn-primary">
+          Delete
         </button>
       </div>
     </li>
