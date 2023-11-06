@@ -7,29 +7,38 @@ import { useState } from "react";
 
 function App() {
   // lets make a small list of task items to start
-  const tempItems = [
-    { id: 0, description: "Passport", quantity: 1, packed: false },
-    { id: 1, description: "Pants", quantity: 3, packed: true },
-    { id: 2, description: "Shirt", quantity: 5, packed: false },
-  ];
+
+  const [items, setItems] = useState([]);
+
+  function handleAddItems(item) {
+    setItems((items) => [...items, item]);
+  }
+
+  function handleToggleItem(id) {
+    setItems((items) =>
+      items.map((item) =>
+        item.id === id ? { ...item, packed: !item.packed } : item
+      )
+    );
+  }
 
   return (
     <div className="card-box">
       <h1 className="title-header">Travel-Pack</h1>
 
       {/* Form section for new Items */}
-      <Form />
+      <Form onAddItems={handleAddItems} />
 
       {/* Filter component */}
       <Filters />
 
       {/*Task number status */}
-      <Status />
+      <Status items={items} />
 
       {/**Task list Render */}
 
       {/*//Make a temp List of inicial items static just to test and fill the  list nad items*/}
-      <ListRender items={tempItems} />
+      <ListRender items={items} onToggleItem={handleToggleItem} />
     </div>
   );
 }

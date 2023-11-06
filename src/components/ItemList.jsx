@@ -1,9 +1,13 @@
-function Item({ item }) {
+function Item({ item, onToggleItem }) {
   // we want the items to have a name, status and quataty
 
   return (
     <li className="flex justify-center align-middle gap-2">
-      <input type="checkbox" value={item.packed} />
+      <input
+        type="checkbox"
+        value={item.packed}
+        onChange={() => onToggleItem(item.id)}
+      />
       <span style={item.packed ? { textDecoration: "line-through" } : {}}>
         {item.quantity} {item.description}
       </span>
