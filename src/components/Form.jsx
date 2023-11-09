@@ -7,12 +7,13 @@ function Form({ onAddItems }) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    if (!description) return; // this will help present addition of empty items
 
     const newItem = { description, quantity, packed: false, id: Date.now() };
     console.log(newItem);
 
     onAddItems(newItem);
-
+    //after adding the item set the form to its inicial state
     setDescription("");
     setQuantity(1);
   }
