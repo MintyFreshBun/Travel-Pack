@@ -1,6 +1,6 @@
 import Item from "./ItemList";
 
-function ListRender({ items, onToggleItem, sortBy }) {
+function ListRender({ items, onToggleItem, onDeleteItem }) {
   /*
   const [filter, setFilter] = useState("all");
 
@@ -12,6 +12,7 @@ function ListRender({ items, onToggleItem, sortBy }) {
   });*/
 
   //before rendering we check the filter sortby
+  /*
   let sortedItems;
 
   if (sortBy == "input") sortedItems = items;
@@ -23,12 +24,17 @@ function ListRender({ items, onToggleItem, sortBy }) {
     sortedItems = items
       .slice()
       .sort((a, b) => Number(a.packed) - Number(b.packed));
-
+  */
   return (
     <div>
-      <ul className="">
-        {sortedItems.map((item) => (
-          <Item item={item} key={item.id} onToggleItem={onToggleItem} />
+      <ul className="flex flex-col justify-center align-middle gap-3">
+        {items.map((item) => (
+          <Item
+            item={item}
+            key={item.id}
+            onToggleItem={onToggleItem}
+            onDeleteItem={onDeleteItem}
+          />
         ))}
       </ul>
     </div>

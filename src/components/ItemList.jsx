@@ -1,26 +1,27 @@
-function Item({ item, onToggleItem }) {
+function Item({ item, onToggleItem, onDeleteItem }) {
   // we want the items to have a name, status and quataty
 
   return (
-    <li className="flex justify-center align-middle gap-2">
+    <li className="flex justify-center align-middle gap-3">
       <input
         type="checkbox"
         value={item.packed}
         onChange={() => onToggleItem(item.id)}
       />
-      <span style={item.packed ? { textDecoration: "line-through" } : {}}>
+      <span
+        className="leading-loose"
+        style={item.packed ? { textDecoration: "line-through" } : {}}
+      >
         {item.quantity} {item.description}
       </span>
-      {/*
-      <div className="btn-group btn-gap">
-        <button type="button" className="btn-primary">
-          Edit
-        </button>
-        <button type="button" className="btn-primary">
-          Delete
-        </button>
-      </div>
-      */}
+
+      <button
+        type="button"
+        className="btn-delete"
+        onClick={() => onDeleteItem(item.id)}
+      >
+        X
+      </button>
     </li>
   );
 }

@@ -31,4 +31,8 @@
   .title-header {
     @apply text-center font-bold text-6xl;
   }
+
+  .btn-delete {
+    @apply py-1 px-2 bg-rose-500 text-white font-semibold rounded-lg shadow-md hover:bg-rose-700 focus:outline-none focus:ring-2 focus:ring-rose-400 focus:ring-opacity-75 transition;
+  }
 }
