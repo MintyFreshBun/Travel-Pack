@@ -2,7 +2,7 @@ function Item({ item, onToggleItem, onDeleteItem }) {
   // we want the items to have a name, status and quataty
 
   return (
-    <li className="flex justify-center align-middle gap-3">
+    <li className="flex justify-center align-middle gap-5">
       <input
         type="checkbox"
         value={item.packed}

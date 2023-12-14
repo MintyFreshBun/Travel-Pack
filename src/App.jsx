@@ -1,5 +1,7 @@
 import "./App.css";
 import Form from "./components/Form";
+import Status from "./components/Status";
+import SortBtns from "./components/SortBtns";
 
 import ListRender from "./components/ListRender";
 
@@ -14,6 +16,10 @@ function App() {
 
   function handleAddItems(item) {
     setItems((items) => [...items, item]);
+  }
+
+  function handleUpdateItems(updated) {
+    setItems(updated);
   }
 
   function handleDeleteItem(id) {
@@ -34,6 +40,12 @@ function App() {
 
       {/* Form section for new Items */}
       <Form onAddItems={handleAddItems} />
+
+      {/** Add the sort buttons here , use the explanation John told you with the handle, you were already doing it correctly with the Form component */}
+
+      <SortBtns onSortItems={handleUpdateItems} items={items} />
+
+      <Status items={items} />
 
       {/**Task list Render */}
 
