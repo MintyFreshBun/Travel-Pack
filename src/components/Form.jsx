@@ -34,7 +34,7 @@ function Form({ onAddItems }) {
           onChange={(e) => setDescription(e.target.value)}
         />
         <select
-          className="p-1 px-2"
+          className="p-1 px-2 "
           value={quantity}
           onChange={(e) => setQuantity(Number(e.target.value))}
         >

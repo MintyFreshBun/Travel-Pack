@@ -13,6 +13,7 @@ function ListRender({ items, onToggleItem, onDeleteItem }) {
             onDeleteItem={onDeleteItem}
           />
         ))}
+        {items == 0 ? "No items set..." : ""}
       </ul>
     </div>
   );
