@@ -7,6 +7,8 @@ import ListRender from "./components/ListRender";
 
 import { useState } from "react";
 
+/**Version 1 by Miguel Amaral */
+
 function App() {
   // lets make a small list of task items to start
 
