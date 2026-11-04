@@ -1,0 +1,253 @@
+.dashboard-intro {
+  padding: 3.4rem 0 1.8rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.55rem;
+  color: #81928b;
+  font-size: 0.68rem;
+  font-weight: 750;
+  letter-spacing: 0.13em;
+}
+
+.dashboard-intro h1 {
+  margin: 0;
+  color: #173b36;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.15rem, 5vw, 3.25rem);
+  font-weight: 500;
+  letter-spacing: -0.055em;
+  line-height: 1.12;
+}
+
+.dashboard-intro > p:last-child {
+  margin: 0.8rem 0 0;
+  color: #73827c;
+  font-size: 0.98rem;
+}
+
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.9rem;
+  margin-bottom: 1.4rem;
+}
+
+.overview-card {
+  display: flex;
+  min-height: 7rem;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 1.1rem;
+  border: 1px solid #e8ede8;
+  border-radius: 0.95rem;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 0.4rem 1.4rem rgba(39, 67, 55, 0.035);
+}
+
+.overview-icon {
+  display: grid;
+  width: 2.65rem;
+  height: 2.65rem;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 0.8rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.icon-trips {
+  background: #e8f1eb;
+  color: #396e59;
+}
+
+.icon-upcoming {
+  background: #f5efe1;
+  color: #a17428;
+}
+
+.icon-ongoing {
+  background: #e8eff5;
+  color: #54758d;
+}
+
+.icon-packing {
+  background: #f1eaf3;
+  color: #87658e;
+}
+
+.overview-label {
+  margin: 0 0 0.22rem;
+  color: #7d8b85;
+  font-size: 0.75rem;
+}
+
+.overview-value {
+  margin: 0;
+  color: #1d3833;
+  font-size: 1.45rem;
+  font-weight: 720;
+  line-height: 1.1;
+}
+
+.overview-value > span {
+  color: #88948e;
+  font-size: 0.68rem;
+  font-weight: 500;
+}
+
+.packing-overview-content {
+  width: 100%;
+}
+
+.packing-overview .progress {
+  height: 0.32rem;
+  margin: 0.65rem 0 0;
+  appearance: none;
+  overflow: hidden;
+  border: 0;
+  border-radius: 999px;
+  background-color: #edf0ed;
+  color: #629579;
+}
+
+.packing-overview .progress::-webkit-progress-bar {
+  border-radius: 999px;
+  background-color: #edf0ed;
+}
+
+.packing-overview .progress::-webkit-progress-value {
+  border-radius: 999px;
+  background-color: #629579;
+}
+
+.packing-overview .progress::-moz-progress-bar {
+  border-radius: 999px;
+  background-color: #629579;
+}
+
+.storage-message {
+  margin: 0 0 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #efd9b7;
+  border-radius: 0.7rem;
+  background: #fff8eb;
+  color: #805c2e;
+  font-size: 0.85rem;
+}
+
+.trips-panel,
+.trip-detail-panel {
+  border: 1px solid #e8ede8;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 0.5rem 1.8rem rgba(39, 67, 55, 0.045);
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: minmax(17rem, 0.83fr) minmax(0, 1.7fr);
+  align-items: start;
+  gap: 1.2rem;
+}
+
+.trips-panel,
+.trip-detail-panel {
+  min-height: 26rem;
+  padding: 1.35rem;
+}
+
+.empty-trips h3,
+.detail-empty-state h2 {
+  margin: 0;
+  color: #29443b;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.empty-trips p,
+.detail-empty-state p {
+  max-width: 18rem;
+  margin: 0.55rem auto 1rem;
+  color: #84918a;
+  font-size: 0.8rem;
+  line-height: 1.55;
+}
+
+.detail-empty-state {
+  display: flex;
+  min-height: 23rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.detail-empty-icon {
+  display: grid;
+  width: 3.5rem;
+  height: 3.5rem;
+  margin-bottom: 1rem;
+  place-items: center;
+  border-radius: 1.1rem;
+  background: #f0f4ef;
+  color: #72917a;
+  font-size: 1.6rem;
+}
+
+@media (max-width: 900px) {
+  .overview-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dashboard-grid {
+    grid-template-columns: minmax(15rem, 0.8fr) minmax(0, 1.5fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .app-shell {
+    width: min(100% - 2rem, 40rem);
+    padding-top: 1rem;
+  }
+
+  .dashboard-intro {
+    padding: 2.5rem 0 1.4rem;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .trips-panel,
+  .trip-detail-panel {
+    min-height: 0;
+    padding: 1.1rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .app-shell {
+    width: min(100% - 1.25rem, 32rem);
+  }
+
+  .overview-grid {
+    gap: 0.55rem;
+  }
+
+  .overview-card {
+    min-height: 6rem;
+    gap: 0.6rem;
+    padding: 0.75rem;
+  }
+
+  .overview-icon {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+
+  .overview-value {
+    font-size: 1.2rem;
+  }
+}

@@ -1,50 +1,62 @@
 import { useState } from "react";
 
 function Form({ onAddItems }) {
-  // Add the functionalities and states here
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!description) return; // this will help present addition of empty items
+    if (!description.trim()) return;
 
-    const newItem = { description, quantity, packed: false, id: Date.now() };
-    console.log(newItem);
+    const newItem = {
+      description: description.trim(),
+      quantity,
+      packed: false,
+      id: Date.now(),
+    };
 
     onAddItems(newItem);
-    //after adding the item set the form to its inicial state
     setDescription("");
     setQuantity(1);
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2 className=" my-2">
-        <label className="label__lg">What needs to be done?</label>
+    <form className="packing-form" onSubmit={handleSubmit}>
+      <h2 className="subtitle is-5">
+        <label className="label" htmlFor="item-description">
+          Add an item to pack
+        </label>
       </h2>
 
-      <div className="flex gap-3 justify-center">
-        <input
-          type="text"
-          className="p-1 px-2 border-custom"
-          name="text"
-          autoComplete="off"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <select
-          className="p-1 px-2 "
-          value={quantity}
-          onChange={(e) => setQuantity(Number(e.target.value))}
-        >
-          {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
-            <option value={num} key={num}>
-              {num}
-            </option>
-          ))}
-        </select>
-        <button type="submit" className="btn-primary px-6">
+      <div className="app-form-controls">
+        <div className="control app-form-description">
+          <input
+            id="item-description"
+            type="text"
+            className="input is-medium"
+            name="text"
+            autoComplete="off"
+            placeholder="e.g. Passport"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+        <div className="control">
+          <div className="select is-medium">
+            <select
+              aria-label="Quantity"
+              value={quantity}
+              onChange={(e) => setQuantity(Number(e.target.value))}
+            >
+              {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
+                <option value={num} key={num}>
+                  {num}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <button type="submit" className="button is-primary is-medium">
           Add
         </button>
       </div>

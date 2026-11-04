@@ -1,0 +1,128 @@
+.trip-form-panel {
+  margin-bottom: 1.4rem;
+  padding: 1.5rem;
+  border: 1px solid #e8ede8;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 0.5rem 1.8rem rgba(39, 67, 55, 0.045);
+}
+
+.trip-form-heading,
+.trip-form-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.trip-form-heading {
+  align-items: flex-start;
+  margin-bottom: 1.1rem;
+}
+
+.trip-form-heading .eyebrow {
+  margin-bottom: 0.3rem;
+}
+
+.trip-form-heading h2 {
+  margin: 0;
+  color: #1d3833;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.close-form-button {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: #f2f5f2;
+  color: #6b7973;
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.trip-form-fields {
+  display: grid;
+  grid-template-columns: 1.3fr 1.3fr 1fr 1fr 0.9fr;
+  gap: 0.9rem;
+}
+
+.trip-form .field {
+  margin-bottom: 0;
+}
+
+.trip-form .label {
+  margin-bottom: 0.4rem;
+  color: #5d6e67;
+  font-size: 0.75rem;
+  font-weight: 650;
+}
+
+.trip-form .input,
+.trip-form .select select {
+  height: 2.65rem;
+  border-color: #dfe7e1;
+  border-radius: 0.55rem;
+  box-shadow: none;
+  color: #25423b;
+  font-size: 0.82rem;
+}
+
+.trip-form .input:focus,
+.trip-form .select select:focus {
+  border-color: #75a18b;
+  box-shadow: 0 0 0 0.12rem rgba(80, 139, 107, 0.12);
+}
+
+.trip-status-field .select,
+.trip-status-field .select select {
+  width: 100%;
+}
+
+.trip-form .help {
+  margin-top: 0.5rem;
+}
+
+.trip-form-actions {
+  justify-content: flex-end;
+  gap: 0.65rem;
+  margin-top: 1.2rem;
+}
+
+.trip-form-actions .button {
+  min-height: 2.55rem;
+  border-radius: 0.65rem;
+  font-size: 0.82rem;
+  font-weight: 650;
+}
+
+.cancel-button {
+  border-color: #e4e9e5;
+  background: #fff;
+  color: #62726b;
+}
+
+.close-form-button:focus-visible {
+  outline: 2px solid #57916d;
+  outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .trip-form-fields {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 680px) {
+  .trip-form-fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 420px) {
+  .trip-form-fields {
+    grid-template-columns: 1fr;
+  }
+}
