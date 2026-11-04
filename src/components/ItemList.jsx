@@ -2,14 +2,16 @@ function Item({ item, onToggleItem, onDeleteItem }) {
   // we want the items to have a name, status and quataty
 
   return (
-    <li className="flex justify-center align-middle gap-5">
+    <li className="packing-item">
       <input
         type="checkbox"
+        className="packing-checkbox"
+        aria-label={`Mark ${item.description} as packed`}
         value={item.packed}
         onChange={() => onToggleItem(item.id)}
       />
       <span
-        className="leading-loose"
+        className="packing-item-description"
         style={item.packed ? { textDecoration: "line-through" } : {}}
       >
         {item.quantity} {item.description}
@@ -17,7 +19,8 @@ function Item({ item, onToggleItem, onDeleteItem }) {
 
       <button
         type="button"
-        className="btn-delete"
+        className="button is-danger is-small"
+        aria-label={`Delete ${item.description}`}
         onClick={() => onDeleteItem(item.id)}
       >
         X

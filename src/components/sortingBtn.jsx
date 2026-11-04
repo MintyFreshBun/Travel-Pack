@@ -21,13 +21,13 @@ function BtnType({ items, onSortItems, sortType }) {
   return (
     <button
       type="button"
-      className="btn-primary"
-      aria-pressed="true"
+      className="button is-link"
+      aria-label={`Sort by ${sortType}`}
       onClick={() => {
         sortItems(sortType);
       }}
     >
-      <span className="visually-hidden capitalize">{sortType}</span>
+      <span className="is-capitalized">{sortType}</span>
     </button>
   );
 }

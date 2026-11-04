@@ -1,8 +1,13 @@
-# React + Vite
+# Travel-Pack
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A packing-list app built with React and Vite. Bulma provides the UI components,
+and Sass supplies the app-specific styles.
 
-Currently, two official plugins are available:
+## Development
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```sh
+npm install
+npm run dev
+npm run lint
+npm run build
+```

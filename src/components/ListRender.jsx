@@ -4,7 +4,7 @@ function ListRender({ items, onToggleItem, onDeleteItem }) {
   return (
     /**These buttons sence they repeat turn them into btns */
     <div>
-      <ul className="flex flex-col justify-center align-middle gap-3 card-box mx-60">
+      <ul className="packing-list">
         {items.map((item) => (
           <Item
             item={item}
@@ -13,7 +13,9 @@ function ListRender({ items, onToggleItem, onDeleteItem }) {
             onDeleteItem={onDeleteItem}
           />
         ))}
-        {items == 0 ? "No items set..." : ""}
+        {items.length === 0 && (
+          <li className="has-text-grey">No items set...</li>
+        )}
       </ul>
     </div>
   );

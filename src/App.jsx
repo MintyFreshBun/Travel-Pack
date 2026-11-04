@@ -1,4 +1,4 @@
-import "./App.css";
+import "./App.scss";
 import Form from "./components/Form";
 import Status from "./components/Status";
 import SortBtns from "./components/SortBtns";
@@ -35,28 +35,30 @@ function App() {
   }
 
   return (
-    <div className="card-box">
-      <h1 className="title-header">Travel-Pack</h1>
+    <main className="container app-shell">
+      <section className="box app-card">
+        <h1 className="title is-1 app-title">Travel-Pack</h1>
 
-      {/* Form section for new Items */}
-      <Form onAddItems={handleAddItems} />
+        {/* Form section for new Items */}
+        <Form onAddItems={handleAddItems} />
 
-      {/** Add the sort buttons here , use the explanation John told you with the handle, you were already doing it correctly with the Form component */}
+        {/** Add the sort buttons here , use the explanation John told you with the handle, you were already doing it correctly with the Form component */}
 
-      <SortBtns onSortItems={handleUpdateItems} items={items} />
+        <SortBtns onSortItems={handleUpdateItems} items={items} />
 
-      <Status items={items} />
+        <Status items={items} />
 
-      {/**Task list Render */}
+        {/**Task list Render */}
 
-      <ListRender
-        items={items}
-        onToggleItem={handleToggleItem}
-        onDeleteItem={handleDeleteItem}
-      />
+        <ListRender
+          items={items}
+          onToggleItem={handleToggleItem}
+          onDeleteItem={handleDeleteItem}
+        />
 
-      {/**Make a clear list button bellow */}
-    </div>
+        {/**Make a clear list button bellow */}
+      </section>
+    </main>
   );
 }
 

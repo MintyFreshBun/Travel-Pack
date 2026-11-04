@@ -1,0 +1,89 @@
+@use "bulma/sass";
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #f5f7fb;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.app-shell {
+  max-width: 64rem;
+  padding-block: 3rem;
+}
+
+.app-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: clamp(1.25rem, 5vw, 3rem);
+  text-align: center;
+}
+
+.app-title,
+.status-message {
+  margin-bottom: 0 !important;
+}
+
+.packing-form .subtitle {
+  margin-bottom: 1rem;
+}
+
+.app-form-controls {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.app-form-description {
+  flex: 1;
+  max-width: 24rem;
+}
+
+.sort-buttons {
+  margin-bottom: 0;
+}
+
+.packing-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.packing-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.packing-item-description {
+  line-height: 1.5;
+}
+
+.packing-checkbox {
+  width: 1rem;
+  height: 1rem;
+}
+
+@media (max-width: 480px) {
+  .app-shell {
+    padding: 1.5rem 1rem;
+  }
+
+  .app-form-controls {
+    flex-wrap: wrap;
+  }
+
+  .app-form-description {
+    flex-basis: 100%;
+    max-width: none;
+  }
+}
