@@ -1,0 +1,100 @@
+:root {
+  --travel-pack-green: #1c5147;
+  font-family: "DM Sans", "Avenir Next", Avenir, sans-serif;
+  color: #183330;
+  background: #f5f7f4;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(ellipse at 82% 0%, rgba(220, 235, 222, 0.62), transparent 34rem),
+    #f5f7f4;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.app-shell {
+  width: min(100% - 3rem, 76rem);
+  margin-inline: auto;
+  padding: 1.5rem 0 2rem;
+}
+
+.app-header,
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.app-header {
+  min-height: 3.25rem;
+}
+
+.brand {
+  justify-content: flex-start;
+  gap: 0.65rem;
+  color: #173b36;
+  font-size: 1.05rem;
+  font-weight: 750;
+  letter-spacing: -0.035em;
+  text-decoration: none;
+}
+
+.brand-mark {
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  border-radius: 0.7rem;
+  background: var(--travel-pack-green);
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.add-trip-button,
+.save-trip-button,
+.add-first-trip {
+  border: 0;
+  border-radius: 0.7rem;
+  background: var(--travel-pack-green);
+  color: white;
+  font-weight: 650;
+  box-shadow: 0 0.25rem 0.65rem rgba(28, 81, 71, 0.14);
+}
+
+.add-trip-button:hover,
+.save-trip-button:hover,
+.add-first-trip:hover {
+  background: #153f37;
+  color: white;
+}
+
+.app-footer {
+  padding: 1.5rem 0 0.5rem;
+  color: #9aa49e;
+  font-size: 0.72rem;
+  text-align: center;
+}

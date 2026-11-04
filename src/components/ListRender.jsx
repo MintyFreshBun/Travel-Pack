@@ -2,7 +2,6 @@ import Item from "./ItemList";
 
 function ListRender({ items, onToggleItem, onDeleteItem }) {
   return (
-    /**These buttons sence they repeat turn them into btns */
     <div>
       <ul className="packing-list">
         {items.map((item) => (

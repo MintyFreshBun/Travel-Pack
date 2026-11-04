@@ -1,65 +1,25 @@
+import { useEffect, useState } from "react";
+import Dashboard from "./components/Dashboard";
+import Intro from "./components/Intro";
 import "./App.scss";
-import Form from "./components/Form";
-import Status from "./components/Status";
-import SortBtns from "./components/SortBtns";
-
-import ListRender from "./components/ListRender";
-
-import { useState } from "react";
 
 function App() {
-  // lets make a small list of task items to start
+  const [showIntro, setShowIntro] = useState(true);
 
-  const [items, setItems] = useState([]);
+  useEffect(() => {
+    const duration = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ? 0
+      : 4500;
+    const timeoutId = window.setTimeout(() => setShowIntro(false), duration);
 
-  //const [sortBy, setSortBy] = useState("input");
+    return () => window.clearTimeout(timeoutId);
+  }, []);
 
-  function handleAddItems(item) {
-    setItems((items) => [...items, item]);
+  if (showIntro) {
+    return <Intro />;
   }
 
-  function handleUpdateItems(updated) {
-    setItems(updated);
-  }
-
-  function handleDeleteItem(id) {
-    setItems((items) => items.filter((item) => item.id !== id));
-  }
-
-  function handleToggleItem(id) {
-    setItems((items) =>
-      items.map((item) =>
-        item.id === id ? { ...item, packed: !item.packed } : item
-      )
-    );
-  }
-
-  return (
-    <main className="container app-shell">
-      <section className="box app-card">
-        <h1 className="title is-1 app-title">Travel-Pack</h1>
-
-        {/* Form section for new Items */}
-        <Form onAddItems={handleAddItems} />
-
-        {/** Add the sort buttons here , use the explanation John told you with the handle, you were already doing it correctly with the Form component */}
-
-        <SortBtns onSortItems={handleUpdateItems} items={items} />
-
-        <Status items={items} />
-
-        {/**Task list Render */}
-
-        <ListRender
-          items={items}
-          onToggleItem={handleToggleItem}
-          onDeleteItem={handleDeleteItem}
-        />
-
-        {/**Make a clear list button bellow */}
-      </section>
-    </main>
-  );
+  return <Dashboard />;
 }
 
 export default App;

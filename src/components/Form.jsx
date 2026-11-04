@@ -1,19 +1,21 @@
 import { useState } from "react";
 
 function Form({ onAddItems }) {
-  // Add the functionalities and states here
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!description) return; // this will help present addition of empty items
+    if (!description.trim()) return;
 
-    const newItem = { description, quantity, packed: false, id: Date.now() };
-    console.log(newItem);
+    const newItem = {
+      description: description.trim(),
+      quantity,
+      packed: false,
+      id: Date.now(),
+    };
 
     onAddItems(newItem);
-    //after adding the item set the form to its inicial state
     setDescription("");
     setQuantity(1);
   }
@@ -22,7 +24,7 @@ function Form({ onAddItems }) {
     <form className="packing-form" onSubmit={handleSubmit}>
       <h2 className="subtitle is-5">
         <label className="label" htmlFor="item-description">
-          What needs to be done?
+          Add an item to pack
         </label>
       </h2>
 
@@ -34,6 +36,7 @@ function Form({ onAddItems }) {
             className="input is-medium"
             name="text"
             autoComplete="off"
+            placeholder="e.g. Passport"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />

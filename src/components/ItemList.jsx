@@ -1,13 +1,11 @@
 function Item({ item, onToggleItem, onDeleteItem }) {
-  // we want the items to have a name, status and quataty
-
   return (
     <li className="packing-item">
       <input
         type="checkbox"
         className="packing-checkbox"
         aria-label={`Mark ${item.description} as packed`}
-        value={item.packed}
+        checked={item.packed}
         onChange={() => onToggleItem(item.id)}
       />
       <span
