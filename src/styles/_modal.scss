@@ -99,6 +99,10 @@
   box-shadow: 0 1.25rem 4rem var(--color-shadow-modal);
 }
 
+.about-heading .eyebrow {
+  margin-bottom: 0.3rem;
+}
+
 .about-heading h2 {
   margin: 0;
   color: var(--color-heading-soft);
@@ -107,24 +111,106 @@
   font-weight: 500;
 }
 
-.about-heading > p:last-child {
-  margin: 0.55rem 0 0;
+.about-tabs {
+  display: flex;
+  gap: 0.3rem;
+  margin-top: 1.1rem;
+  border-bottom: 1px solid var(--color-border-card);
+}
+
+.about-tab {
+  position: relative;
+  min-height: 2.5rem;
+  padding: 0.55rem 0.8rem;
+  border: 0;
+  background: transparent;
   color: var(--color-text-muted);
-  font-size: 0.88rem;
+  font-size: 0.8rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+.about-tab[aria-selected="true"] {
+  color: var(--color-brand-accent-strong);
+}
+
+.about-tab[aria-selected="true"]::after {
+  position: absolute;
+  right: 0.65rem;
+  bottom: -1px;
+  left: 0.65rem;
+  height: 2px;
+  background: var(--color-brand-accent);
+  content: "";
+}
+
+.about-tab:focus-visible,
+.about-tab-panel:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.about-tab-panel {
+  padding-top: 1rem;
+}
+
+.about-tab-panel.is-exit {
+  animation: about-tab-out 140ms ease-in both;
+  pointer-events: none;
+}
+
+.about-tab-panel.is-enter {
+  animation: about-tab-in 180ms ease-out both;
+}
+
+@keyframes about-tab-out {
+  to {
+    opacity: 0;
+    transform: translateY(-0.2rem);
+  }
+}
+
+@keyframes about-tab-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.2rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.about-intro {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
   line-height: 1.55;
 }
 
 .about-details {
   display: grid;
   gap: 0.65rem;
-  margin-top: 1.2rem;
+  margin-top: 0.9rem;
 }
 
 .about-details section {
+  display: grid;
+  grid-template-columns: 1.2rem minmax(0, 1fr);
+  align-items: start;
+  gap: 0.7rem;
   padding: 0.85rem 1rem;
   border: 1px solid var(--color-border-card);
   border-radius: 0.7rem;
   background: var(--color-surface-soft);
+}
+
+.about-details section > svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-top: 0.05rem;
+  color: var(--color-brand-accent-strong);
 }
 
 .about-details h3 {
@@ -148,6 +234,40 @@
   text-underline-offset: 0.15em;
 }
 
+.about-details .about-developer-location {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.45rem;
+  color: var(--color-text-soft);
+  font-size: 0.75rem;
+}
+
+.about-developer-location svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  color: var(--color-brand-accent-strong);
+}
+
+.about-profile-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 0.55rem;
+  font-size: 0.75rem;
+}
+
+.about-profile-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.about-profile-links svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
 .about-actions {
   display: flex;
   justify-content: flex-end;
@@ -159,6 +279,10 @@
   border-radius: 0.65rem;
   font-size: 0.82rem;
   font-weight: 650;
+}
+
+.modal-dialog.about-modal-dialog {
+  max-width: 39rem;
 }
 
 .delete-trip-heading h2 {
@@ -250,11 +374,17 @@
   .delete-trip-details dd {
     text-align: left;
   }
+
+  .about-tab {
+    padding-inline: 0.55rem;
+    font-size: 0.74rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .modal-backdrop,
-  .modal-dialog {
+  .modal-dialog,
+  .about-tab-panel {
     animation-duration: 1ms !important;
   }
 }

@@ -1,8 +1,11 @@
 import { useState } from "react";
 import {
+  ArrowDownAZ,
+  ArrowUpAZ,
   ArrowRight,
   CalendarDays,
   Check,
+  ListChecks,
   Luggage,
   MapPin,
   PackageOpen,
@@ -11,6 +14,7 @@ import {
   Plus,
   Trash2,
 } from "lucide-react";
+import AboutModal from "./AboutModal";
 import Form from "./Form";
 import ListRender from "./ListRender";
 import Modal from "./Modal";
@@ -26,6 +30,47 @@ const tripStatuses = {
   canceled: "Canceled",
   completed: "Completed",
 };
+
+const tripStatusOrder = ["upcoming", "ongoing", "completed", "canceled"];
+
+const tripSortLabels = {
+  name: "Name",
+  departure: "Departure",
+  destination: "Destination",
+  status: "Status",
+};
+
+function compareTrips(first, second, sortBy, direction) {
+  let comparison = 0;
+
+  if (sortBy === "name" || sortBy === "destination") {
+    comparison = (first[sortBy] || "").localeCompare(second[sortBy] || "", undefined, {
+      sensitivity: "base",
+    });
+  } else if (sortBy === "departure") {
+    const firstDate = first.tripday || "";
+    const secondDate = second.tripday || "";
+
+    if (!firstDate || !secondDate) {
+      return firstDate ? -1 : secondDate ? 1 : 0;
+    }
+
+    comparison = firstDate.localeCompare(secondDate);
+  } else if (sortBy === "status") {
+    const firstStatus = Math.max(
+      tripStatusOrder.indexOf(first.status),
+      tripStatusOrder.length
+    );
+    const secondStatus = Math.max(
+      tripStatusOrder.indexOf(second.status),
+      tripStatusOrder.length
+    );
+    comparison =
+      firstStatus - secondStatus;
+  }
+
+  return direction === "asc" ? comparison : -comparison;
+}
 
 function readTrips() {
   try {
@@ -73,10 +118,45 @@ function Dashboard() {
   const [showAbout, setShowAbout] = useState(false);
   const [editingTrip, setEditingTrip] = useState(null);
   const [tripToDelete, setTripToDelete] = useState(null);
+  const [tripSort, setTripSort] = useState({
+    by: null,
+    direction: null,
+    nextDirections: {
+      name: "asc",
+      departure: "asc",
+      destination: "asc",
+      status: "asc",
+    },
+  });
   const [storageError, setStorageError] = useState(initialData.error);
 
   const selectedTrip = trips.find((trip) => trip.id === selectedTripId) || null;
   const selectedItems = selectedTrip?.items || [];
+  const sortedTrips = tripSort.by
+    ? [...trips].sort((first, second) =>
+        compareTrips(
+          first,
+          second,
+          tripSort.by,
+          tripSort.direction
+        )
+      )
+    : trips;
+
+  function handleTripSort(sortBy) {
+    setTripSort((currentSort) => {
+      const direction = currentSort.nextDirections[sortBy];
+
+      return {
+        by: sortBy,
+        direction,
+        nextDirections: {
+          ...currentSort.nextDirections,
+          [sortBy]: direction === "asc" ? "desc" : "asc",
+        },
+      };
+    });
+  }
 
   function persistTrips(nextTrips) {
     setTrips(nextTrips);
@@ -263,59 +343,7 @@ function Dashboard() {
         />
       )}
       {showAbout && (
-        <Modal labelledBy="about-title" onClose={() => setShowAbout(false)}>
-          {(requestClose) => (
-            <div className="about-dialog">
-              <div className="about-heading">
-                <p className="eyebrow">A LITTLE ABOUT US</p>
-                <h2 id="about-title">Travel-Pack</h2>
-                <p>
-                  A simple space to organize your trips, keep track of your plans,
-                  and get your packing list ready before you go.
-                </p>
-              </div>
-              <div className="about-details">
-                <section>
-                  <h3>Made for the journey</h3>
-                  <p>
-                    Create trips, track dates and status, and keep a dedicated
-                    packing list for each destination.
-                  </p>
-                </section>
-                <section>
-                  <h3>Your trips stay yours</h3>
-                  <p>
-                    Trip details are saved in this browser and are not sent to a
-                    Travel-Pack account.
-                  </p>
-                </section>
-                <section>
-                  <h3>About the developer</h3>
-                  <p>
-                    Built by{" "}
-                    <a
-                      href="https://github.com/MintyFreshBun"
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      MintyFreshBun
-                    </a>
-                    .
-                  </p>
-                </section>
-              </div>
-              <div className="about-actions">
-                <button
-                  type="button"
-                  className="button cancel-button"
-                  onClick={() => requestClose()}
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          )}
-        </Modal>
+        <AboutModal onClose={() => setShowAbout(false)} />
       )}
       {tripToDelete && (
         <Modal labelledBy="delete-trip-title" onClose={() => setTripToDelete(null)}>
@@ -381,15 +409,17 @@ function Dashboard() {
       <section
         className={`dashboard-grid${trips.length === 0 ? " has-no-trips" : ""}`}
       >
-        <aside className="trips-panel">
-          <div className="section-heading">
-            <div>
-              <p className="eyebrow">YOUR PLANS</p>
-              <h2>
-                Trips <span>{trips.length}</span>
-              </h2>
-            </div>
-            {trips.length > 0 && (
+        <aside
+          className={`trips-panel${trips.length === 0 ? " has-no-trips" : ""}`}
+        >
+          {trips.length > 0 && (
+            <div className="section-heading">
+              <div>
+                <p className="eyebrow">YOUR PLANS</p>
+                <h2>
+                  Trips <span>{trips.length}</span>
+                </h2>
+              </div>
               <button
                 type="button"
                 className="button panel-add-trip-button"
@@ -400,12 +430,63 @@ function Dashboard() {
               >
                 <Plus aria-hidden="true" /> Add trip
               </button>
-            )}
-          </div>
+            </div>
+          )}
 
           {trips.length > 0 ? (
-            <ul className="trip-list">
-              {trips.map((trip) => (
+            <>
+              <div className="trip-sort-controls" role="group" aria-label="Sort trips">
+                {Object.entries(tripSortLabels).map(([sortBy, label]) => {
+                  const direction =
+                    tripSort.by === sortBy
+                      ? tripSort.direction
+                      : tripSort.nextDirections[sortBy];
+                  const directionLabel =
+                    sortBy === "departure"
+                      ? direction === "asc"
+                        ? "earliest"
+                        : "latest"
+                      : sortBy === "status"
+                        ? direction === "asc"
+                          ? "To go first"
+                          : "Canceled first"
+                        : direction === "asc"
+                          ? "A–Z"
+                          : "Z–A";
+                  const activeDirection =
+                    tripSort.by === sortBy
+                      ? tripSort.direction
+                      : null;
+
+                  return (
+                    <button
+                      type="button"
+                      className="button trip-sort-button"
+                      key={sortBy}
+                      aria-label={`Sort trips by ${label.toLowerCase()} ${directionLabel}`}
+                      aria-pressed={tripSort.by === sortBy}
+                      onClick={() => handleTripSort(sortBy)}
+                    >
+                      {sortBy === "name" ? (
+                        activeDirection === "desc" ? (
+                          <ArrowUpAZ aria-hidden="true" />
+                        ) : (
+                          <ArrowDownAZ aria-hidden="true" />
+                        )
+                      ) : sortBy === "departure" ? (
+                        <CalendarDays aria-hidden="true" />
+                      ) : sortBy === "destination" ? (
+                        <MapPin aria-hidden="true" />
+                      ) : (
+                        <ListChecks aria-hidden="true" />
+                      )}
+                      {label}: {directionLabel}
+                    </button>
+                  );
+                })}
+              </div>
+              <ul className="trip-list">
+              {sortedTrips.map((trip) => (
                 <li key={trip.id}>
                   <article
                     className={`trip-card${selectedTrip?.id === trip.id ? " is-selected" : ""}`}
@@ -457,7 +538,8 @@ function Dashboard() {
                   </article>
                 </li>
               ))}
-            </ul>
+              </ul>
+            </>
           ) : (
             <div className="empty-trips">
               <span className="empty-illustration" aria-hidden="true">

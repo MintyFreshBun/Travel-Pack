@@ -9,7 +9,7 @@ function App() {
   useEffect(() => {
     const duration = window.matchMedia("(prefers-reduced-motion: reduce)").matches
       ? 0
-      : 4500;
+      : 3800;
     const timeoutId = window.setTimeout(() => setShowIntro(false), duration);
 
     return () => window.clearTimeout(timeoutId);
