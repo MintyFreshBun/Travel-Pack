@@ -5,7 +5,7 @@ function Intro() {
         <span className="intro-logo intro-sequence-item" aria-hidden="true">
           TP
         </span>
-        <p className="intro-app-name intro-sequence-item">travel-pack</p>
+        <p className="intro-app-name intro-sequence-item">Travel-Pack</p>
         <div className="intro-welcome intro-sequence-item">
           <h1>Welcome</h1>
           <p className="intro-tagline">Your next adventure starts here.</p>

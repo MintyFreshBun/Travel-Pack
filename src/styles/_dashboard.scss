@@ -1,10 +1,10 @@
 .dashboard-intro {
-  padding: 3.4rem 0 1.8rem;
+  padding: 1.8rem 0 1.25rem;
 }
 
 .eyebrow {
   margin: 0 0 0.55rem;
-  color: #81928b;
+  color: var(--color-text-soft);
   font-size: 0.68rem;
   font-weight: 750;
   letter-spacing: 0.13em;
@@ -12,7 +12,7 @@
 
 .dashboard-intro h1 {
   margin: 0;
-  color: #173b36;
+  color: var(--color-brand-heading);
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(2.15rem, 5vw, 3.25rem);
   font-weight: 500;
@@ -22,7 +22,7 @@
 
 .dashboard-intro > p:last-child {
   margin: 0.8rem 0 0;
-  color: #73827c;
+  color: var(--color-text-muted);
   font-size: 0.98rem;
 }
 
@@ -39,10 +39,10 @@
   align-items: center;
   gap: 0.9rem;
   padding: 1.1rem;
-  border: 1px solid #e8ede8;
+  border: 1px solid var(--color-border);
   border-radius: 0.95rem;
-  background: rgba(255, 255, 255, 0.88);
-  box-shadow: 0 0.4rem 1.4rem rgba(39, 67, 55, 0.035);
+  background: var(--color-surface-translucent);
+  box-shadow: 0 0.4rem 1.4rem var(--color-shadow-soft);
 }
 
 .overview-icon {
@@ -56,42 +56,48 @@
   font-weight: 600;
 }
 
+.overview-icon svg {
+  width: 1.35rem;
+  height: 1.35rem;
+  stroke-width: 1.8;
+}
+
 .icon-trips {
-  background: #e8f1eb;
-  color: #396e59;
+  background: var(--color-brand-soft);
+  color: var(--color-brand-accent-strong);
 }
 
 .icon-upcoming {
-  background: #f5efe1;
-  color: #a17428;
+  background: var(--color-icon-upcoming-surface);
+  color: var(--color-warning);
 }
 
 .icon-ongoing {
-  background: #e8eff5;
-  color: #54758d;
+  background: var(--color-status-blue-surface);
+  color: var(--color-status-blue);
 }
 
 .icon-packing {
-  background: #f1eaf3;
-  color: #87658e;
+  background: var(--color-status-purple-surface);
+  color: var(--color-status-purple);
 }
 
 .overview-label {
   margin: 0 0 0.22rem;
-  color: #7d8b85;
+  color: var(--color-text-soft);
   font-size: 0.75rem;
 }
 
 .overview-value {
   margin: 0;
-  color: #1d3833;
+  color: var(--color-heading-soft);
   font-size: 1.45rem;
   font-weight: 720;
   line-height: 1.1;
 }
 
 .overview-value > span {
-  color: #88948e;
+  color: var(--color-text-subtle);
   font-size: 0.68rem;
   font-weight: 500;
 }
@@ -107,60 +113,121 @@
   overflow: hidden;
   border: 0;
   border-radius: 999px;
-  background-color: #edf0ed;
-  color: #629579;
+  background-color: var(--color-border-soft);
+  color: var(--color-brand-accent);
 }
 
 .packing-overview .progress::-webkit-progress-bar {
   border-radius: 999px;
-  background-color: #edf0ed;
+  background-color: var(--color-border-soft);
 }
 
 .packing-overview .progress::-webkit-progress-value {
   border-radius: 999px;
-  background-color: #629579;
+  background-color: var(--color-brand-accent);
 }
 
 .packing-overview .progress::-moz-progress-bar {
   border-radius: 999px;
-  background-color: #629579;
+  background-color: var(--color-brand-accent);
 }
 
 .storage-message {
   margin: 0 0 1rem;
   padding: 0.75rem 1rem;
-  border: 1px solid #efd9b7;
+  border: 1px solid var(--color-warning-border);
   border-radius: 0.7rem;
-  background: #fff8eb;
-  color: #805c2e;
+  background: var(--color-warning-surface);
+  color: var(--color-warning-text);
   font-size: 0.85rem;
 }
 
 .trips-panel,
 .trip-detail-panel {
-  border: 1px solid #e8ede8;
+  border: 1px solid var(--color-border);
   border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 0.5rem 1.8rem rgba(39, 67, 55, 0.045);
+  background: var(--color-surface-panel-translucent);
+  box-shadow: 0 0.5rem 1.8rem var(--color-shadow);
 }
 
 .dashboard-grid {
   display: grid;
   grid-template-columns: minmax(17rem, 0.83fr) minmax(0, 1.7fr);
-  align-items: start;
+  align-items: stretch;
   gap: 1.2rem;
+}
+
+.dashboard-grid.has-no-trips {
+  grid-template-columns: 1fr;
 }
 
 .trips-panel,
 .trip-detail-panel {
-  min-height: 26rem;
+  height: 34rem;
+  min-height: 0;
+  overflow: hidden;
   padding: 1.35rem;
+}
+
+.trips-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.trips-panel .section-heading {
+  flex: 0 0 auto;
+}
+
+.trips-panel .trip-list {
+  min-height: 0;
+  flex: 1 1 auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 0.15rem 0.35rem 0.15rem 0.1rem;
+  scrollbar-color: var(--color-brand-mid) var(--color-surface-muted);
+  scrollbar-width: thin;
+}
+
+.trips-panel .empty-trips {
+  flex: 1 1 auto;
+  overflow-y: auto;
+}
+
+.trip-detail-panel {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  scrollbar-color: var(--color-brand-mid) var(--color-surface-muted);
+  scrollbar-width: thin;
+}
+
+.trip-detail-header {
+  flex: 0 0 auto;
+}
+
+.packing-section {
+  display: flex;
+  min-height: 0;
+  flex: 1 1 auto;
+  flex-direction: column;
+}
+
+.packing-section > :not(.packing-list-scroll) {
+  flex: 0 0 auto;
+}
+
+.packing-list-scroll {
+  min-height: 0;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  scrollbar-color: var(--color-brand-mid) var(--color-surface-muted);
+  scrollbar-width: thin;
 }
 
 .empty-trips h3,
 .detail-empty-state h2 {
   margin: 0;
-  color: #29443b;
+  color: var(--color-text-deep);
   font-size: 1rem;
   font-weight: 700;
 }
@@ -169,7 +236,7 @@
 .detail-empty-state p {
   max-width: 18rem;
   margin: 0.55rem auto 1rem;
-  color: #84918a;
+  color: var(--color-text-soft);
   font-size: 0.8rem;
   line-height: 1.55;
 }
@@ -191,8 +258,8 @@
   margin-bottom: 1rem;
   place-items: center;
   border-radius: 1.1rem;
-  background: #f0f4ef;
-  color: #72917a;
+  background: var(--color-brand-tint);
+  color: var(--color-brand-accent-strong);
   font-size: 1.6rem;
 }
 
@@ -213,7 +280,7 @@
   }
 
   .dashboard-intro {
-    padding: 2.5rem 0 1.4rem;
+    padding: 1.6rem 0 1.1rem;
   }
 
   .dashboard-grid {
@@ -222,8 +289,26 @@
 
   .trips-panel,
   .trip-detail-panel {
+    height: auto;
     min-height: 0;
+    overflow: visible;
     padding: 1.1rem;
+  }
+
+  .trips-panel .trip-list {
+    min-height: auto;
+    flex: 0 0 auto;
+    overflow: visible;
+  }
+
+  .trips-panel .empty-trips {
+    flex: 0 0 auto;
+    overflow: visible;
+  }
+
+  .packing-list-scroll {
+    max-height: none;
+    overflow: visible;
   }
 }
 

@@ -11,13 +11,13 @@
 
 .packing-section-heading h3 {
   margin: 0;
-  color: #29443b;
+  color: var(--color-text-deep);
   font-size: 1rem;
   font-weight: 720;
 }
 
 .packing-section-heading > span {
-  color: #84918a;
+  color: var(--color-text-soft);
   font-size: 0.72rem;
 }
 
@@ -26,63 +26,114 @@
 }
 
 .packing-form .label {
-  color: #65756d;
+  color: var(--color-text-label);
   font-size: 0.75rem;
 }
 
 .app-form-controls {
   display: flex;
-  align-items: flex-end;
-  gap: 0.5rem;
+  align-items: stretch;
+  gap: 0.65rem;
 }
 
 .app-form-description {
+  min-width: 0;
   flex: 1;
 }
 
+.app-quantity-control,
+.app-quantity-select {
+  height: 2.55rem;
+}
+
+.app-quantity-control .select,
+.app-quantity-select select {
+  width: 4.25rem;
+  height: 100%;
+}
+
 .app-form-description .input,
-.app-form-controls .select select {
-  min-height: 2.55rem;
-  border-color: #e1e8e2;
+.app-quantity-select select {
+  height: 2.55rem;
+  border-color: var(--color-border-control);
   border-radius: 0.55rem;
+  background-color: var(--color-surface);
   box-shadow: none;
+  color: var(--color-text-strong);
+  color-scheme: light;
   font-size: 0.8rem;
 }
 
+.app-form-description .input::placeholder {
+  color: var(--color-placeholder);
+  opacity: 1;
+}
+
 .app-form-controls > .button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding-inline: 0.9rem;
+  white-space: nowrap;
+}
+
+.app-add-item-button {
   min-height: 2.55rem;
-  border: 0;
+  border-radius: 0.7rem;
+}
+
+.app-form-controls > .button svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.sort-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 0.9rem;
+}
+
+.sort-toggle-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2rem;
+  padding-inline: 0.7rem;
+  border-color: var(--color-border-button);
   border-radius: 0.55rem;
-  background: var(--travel-pack-green);
-  font-size: 0.78rem;
+  background: var(--color-surface-soft);
+  color: var(--color-brand-muted);
+  font-size: 0.72rem;
   font-weight: 650;
 }
 
-.sort-buttons {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 0.4rem;
-  margin: 0.8rem 0 !important;
+.sort-toggle-button:hover {
+  border-color: var(--color-border-button-hover);
+  background: var(--color-brand-tint);
+  color: var(--color-brand-hover);
 }
 
-.sort-buttons .button {
-  height: 1.85rem;
-  padding-inline: 0.65rem;
-  border-color: #e4eae5;
-  border-radius: 0.5rem;
-  background: #fff;
-  color: #718078;
-  font-size: 0.68rem;
+.sort-toggle-button svg {
+  width: 0.95rem;
+  height: 0.95rem;
 }
 
 .status-message {
   margin: 0.7rem 0 !important;
-  color: #718078;
+  color: var(--color-status-neutral-text);
   font-size: 0.78rem !important;
   font-weight: 500;
   line-height: 1.5;
   text-align: left;
+}
+
+.status-message svg {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.35rem;
+  vertical-align: -0.15rem;
+  color: var(--color-brand-accent-strong);
 }
 
 .status-message.notification {
@@ -106,18 +157,18 @@
   align-items: center;
   gap: 0.65rem;
   padding: 0.35rem 0.45rem;
-  border-bottom: 1px solid #f0f2f0;
+  border-bottom: 1px solid var(--color-line);
 }
 
 .packing-checkbox {
   width: 1rem;
   height: 1rem;
-  accent-color: #4a8964;
+  accent-color: var(--color-brand-accent-strong);
 }
 
 .packing-item-description {
   flex: 1;
-  color: #4b5e55;
+  color: var(--color-text-item);
   font-size: 0.8rem;
 }
 
@@ -127,14 +178,19 @@
   padding: 0;
   border: 0;
   border-radius: 0.45rem;
-  background: #fbefed;
-  color: #aa665e;
+  background: var(--color-status-red-surface);
+  color: var(--color-status-red-text);
   font-size: 0.7rem;
+}
+
+.packing-item .button svg {
+  width: 0.85rem;
+  height: 0.85rem;
 }
 
 .packing-list .has-text-grey {
   padding: 0.65rem 0;
-  color: #99a39d !important;
+  color: var(--color-text-subtle) !important;
   font-size: 0.8rem;
 }
 

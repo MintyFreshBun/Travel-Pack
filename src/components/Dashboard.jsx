@@ -1,6 +1,19 @@
 import { useState } from "react";
+import {
+  ArrowRight,
+  CalendarDays,
+  Check,
+  Luggage,
+  MapPin,
+  PackageOpen,
+  Pencil,
+  Plane,
+  Plus,
+  Trash2,
+} from "lucide-react";
 import Form from "./Form";
 import ListRender from "./ListRender";
+import Modal from "./Modal";
 import SortBtns from "./SortBtns";
 import Status from "./Status";
 import TripForm from "./TripForm";
@@ -53,13 +66,16 @@ function formatTripDate(date) {
 function Dashboard() {
   const [initialData] = useState(readTrips);
   const [trips, setTrips] = useState(initialData.trips);
-  const [selectedTripId, setSelectedTripId] = useState(null);
+  const [selectedTripId, setSelectedTripId] = useState(
+    initialData.trips[0]?.id || null
+  );
   const [showTripForm, setShowTripForm] = useState(false);
+  const [showAbout, setShowAbout] = useState(false);
   const [editingTrip, setEditingTrip] = useState(null);
+  const [tripToDelete, setTripToDelete] = useState(null);
   const [storageError, setStorageError] = useState(initialData.error);
 
-  const selectedTrip =
-    trips.find((trip) => trip.id === selectedTripId) || trips[0] || null;
+  const selectedTrip = trips.find((trip) => trip.id === selectedTripId) || null;
   const selectedItems = selectedTrip?.items || [];
 
   function persistTrips(nextTrips) {
@@ -101,6 +117,17 @@ function Dashboard() {
     setShowTripForm(true);
   }
 
+  function handleDeleteTrip() {
+    if (!tripToDelete) return;
+
+    const remainingTrips = trips.filter((trip) => trip.id !== tripToDelete.id);
+    persistTrips(remainingTrips);
+    if (selectedTripId === tripToDelete.id) {
+      setSelectedTripId(remainingTrips[0]?.id || null);
+    }
+    setTripToDelete(null);
+  }
+
   function handleCancelTripForm() {
     setShowTripForm(false);
     setEditingTrip(null);
@@ -137,12 +164,15 @@ function Dashboard() {
 
   const upcomingTrips = trips.filter((trip) => trip.status === "upcoming").length;
   const ongoingTrips = trips.filter((trip) => trip.status === "ongoing").length;
-  const packedItems = trips.reduce(
+  const packingTrips = trips.filter(
+    (trip) => trip.status !== "canceled" && trip.status !== "completed"
+  );
+  const packedItems = packingTrips.reduce(
     (total, trip) =>
       total + (trip.items || []).filter((item) => item.packed).length,
     0
   );
-  const totalItems = trips.reduce(
+  const totalItems = packingTrips.reduce(
     (total, trip) => total + (trip.items || []).length,
     0
   );
@@ -157,14 +187,11 @@ function Dashboard() {
           <span>travel-pack</span>
         </a>
         <button
-          className="button add-trip-button"
+          className="button about-button"
           type="button"
-          onClick={() => {
-            setEditingTrip(null);
-            setShowTripForm((isOpen) => !isOpen);
-          }}
+          onClick={() => setShowAbout(true)}
         >
-          <span aria-hidden="true">+</span> Add a trip
+          About
         </button>
       </header>
 
@@ -177,7 +204,7 @@ function Dashboard() {
       <section className="overview-grid" aria-label="Trip overview">
         <article className="overview-card">
           <span className="overview-icon icon-trips" aria-hidden="true">
-            ↗
+            <Plane />
           </span>
           <div>
             <p className="overview-label">Total trips</p>
@@ -186,7 +213,7 @@ function Dashboard() {
         </article>
         <article className="overview-card">
           <span className="overview-icon icon-upcoming" aria-hidden="true">
-            ◷
+            <CalendarDays />
           </span>
           <div>
             <p className="overview-label">Coming up</p>
@@ -195,7 +222,7 @@ function Dashboard() {
         </article>
         <article className="overview-card">
           <span className="overview-icon icon-ongoing" aria-hidden="true">
-            ✓
+            <Check />
           </span>
           <div>
             <p className="overview-label">In progress</p>
@@ -204,7 +231,7 @@ function Dashboard() {
         </article>
         <article className="overview-card packing-overview">
           <span className="overview-icon icon-packing" aria-hidden="true">
-            □
+            <Luggage />
           </span>
           <div className="packing-overview-content">
             <p className="overview-label">Packing progress</p>
@@ -235,8 +262,125 @@ function Dashboard() {
           onCancel={handleCancelTripForm}
         />
       )}
+      {showAbout && (
+        <Modal labelledBy="about-title" onClose={() => setShowAbout(false)}>
+          {(requestClose) => (
+            <div className="about-dialog">
+              <div className="about-heading">
+                <p className="eyebrow">A LITTLE ABOUT US</p>
+                <h2 id="about-title">Travel-Pack</h2>
+                <p>
+                  A simple space to organize your trips, keep track of your plans,
+                  and get your packing list ready before you go.
+                </p>
+              </div>
+              <div className="about-details">
+                <section>
+                  <h3>Made for the journey</h3>
+                  <p>
+                    Create trips, track dates and status, and keep a dedicated
+                    packing list for each destination.
+                  </p>
+                </section>
+                <section>
+                  <h3>Your trips stay yours</h3>
+                  <p>
+                    Trip details are saved in this browser and are not sent to a
+                    Travel-Pack account.
+                  </p>
+                </section>
+                <section>
+                  <h3>About the developer</h3>
+                  <p>
+                    Built by{" "}
+                    <a
+                      href="https://github.com/MintyFreshBun"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      MintyFreshBun
+                    </a>
+                    .
+                  </p>
+                </section>
+              </div>
+              <div className="about-actions">
+                <button
+                  type="button"
+                  className="button cancel-button"
+                  onClick={() => requestClose()}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          )}
+        </Modal>
+      )}
+      {tripToDelete && (
+        <Modal labelledBy="delete-trip-title" onClose={() => setTripToDelete(null)}>
+          {(requestClose) => (
+            <div className="delete-trip-dialog">
+              <div className="delete-trip-heading">
+                <p className="eyebrow">DELETE TRIP</p>
+                <h2 id="delete-trip-title">
+                  Are you sure you want to delete this trip?
+                </h2>
+                <p>
+                  This will permanently delete the trip and its packing list.
+                  This cannot be undone.
+                </p>
+              </div>
+              <dl className="delete-trip-details">
+                <div>
+                  <dt>Trip</dt>
+                  <dd>{tripToDelete.name}</dd>
+                </div>
+                <div>
+                  <dt>Destination</dt>
+                  <dd>{tripToDelete.destination}</dd>
+                </div>
+                <div>
+                  <dt>Dates</dt>
+                  <dd>
+                    {formatTripDate(tripToDelete.tripday)} –{" "}
+                    {formatTripDate(tripToDelete.returnDate)}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Status</dt>
+                  <dd>{tripStatuses[tripToDelete.status] || "To go"}</dd>
+                </div>
+                <div>
+                  <dt>Packing list</dt>
+                  <dd>{(tripToDelete.items || []).length} items will be deleted</dd>
+                </div>
+              </dl>
+              <div className="delete-trip-actions">
+                <button
+                  type="button"
+                  className="button cancel-button"
+                  onClick={() => requestClose()}
+                >
+                  Keep trip
+                </button>
+                <button
+                  type="button"
+                  className="button confirm-delete-trip-button"
+                  onClick={() => requestClose(handleDeleteTrip)}
+                >
+                  <Trash2 aria-hidden="true" />
+                  Delete trip
+                </button>
+              </div>
+            </div>
+          )}
+        </Modal>
+      )}
 
-      <section className="dashboard-grid">
+      <section
+        className={`dashboard-grid${trips.length === 0 ? " has-no-trips" : ""}`}
+      >
         <aside className="trips-panel">
           <div className="section-heading">
             <div>
@@ -245,6 +389,18 @@ function Dashboard() {
                 Trips <span>{trips.length}</span>
               </h2>
             </div>
+            {trips.length > 0 && (
+              <button
+                type="button"
+                className="button panel-add-trip-button"
+                onClick={() => {
+                  setEditingTrip(null);
+                  setShowTripForm(true);
+                }}
+              >
+                <Plus aria-hidden="true" /> Add trip
+              </button>
+            )}
           </div>
 
           {trips.length > 0 ? (
@@ -258,20 +414,26 @@ function Dashboard() {
                       type="button"
                       className="trip-card-select"
                       aria-pressed={selectedTrip?.id === trip.id}
-                      onClick={() => setSelectedTripId(trip.id)}
+                      onClick={() =>
+                        setSelectedTripId((selectedId) =>
+                          selectedId === trip.id ? null : trip.id
+                        )
+                      }
                     >
-                      <span className="trip-card-topline">
-                        <span className={`trip-status status-${trip.status}`}>
-                          <span aria-hidden="true" />
-                          {tripStatuses[trip.status] || "To go"}
-                        </span>
-                        <span className="trip-destination">{trip.destination}</span>
+                      <span className={`trip-status status-${trip.status}`}>
+                        <span aria-hidden="true" />
+                        {tripStatuses[trip.status] || "To go"}
                       </span>
                       <span className="trip-card-name">{trip.name}</span>
+                      <span className="trip-destination">
+                        <MapPin aria-hidden="true" />
+                        {trip.destination}
+                      </span>
                       <span className="trip-card-dates">
-                        {formatTripDate(trip.tripday)}{" "}
-                        <span aria-hidden="true">→</span>{" "}
-                        {formatTripDate(trip.returnDate)}
+                        <CalendarDays aria-hidden="true" />
+                        <span>{formatTripDate(trip.tripday)}</span>
+                        <ArrowRight aria-hidden="true" />
+                        <span>{formatTripDate(trip.returnDate)}</span>
                       </span>
                     </button>
                     <button
@@ -280,7 +442,17 @@ function Dashboard() {
                       aria-label={`Edit ${trip.name}`}
                       onClick={() => handleEditTrip(trip)}
                     >
+                      <Pencil aria-hidden="true" />
                       Edit
+                    </button>
+                    <button
+                      type="button"
+                      className="delete-trip-button"
+                      aria-label={`Delete ${trip.name}`}
+                      onClick={() => setTripToDelete(trip)}
+                    >
+                      <Trash2 aria-hidden="true" />
+                      Delete
                     </button>
                   </article>
                 </li>
@@ -289,7 +461,7 @@ function Dashboard() {
           ) : (
             <div className="empty-trips">
               <span className="empty-illustration" aria-hidden="true">
-                ✈
+                <Plane />
               </span>
               <h3>Your next adventure starts here</h3>
               <p>Add a trip to start planning your itinerary and packing list.</p>
@@ -304,61 +476,67 @@ function Dashboard() {
           )}
         </aside>
 
-        <section className="trip-detail-panel" aria-live="polite">
-          {selectedTrip ? (
-            <>
-              <div className="trip-detail-header">
-                <div>
-                  <p className="eyebrow">YOUR PACKING LIST</p>
-                  <h2>{selectedTrip.name}</h2>
-                  <p className="trip-detail-location">
-                    <span aria-hidden="true">⌖</span> {selectedTrip.destination}
-                    <span className="detail-date-divider" aria-hidden="true">
-                      ·
-                    </span>
-                    {formatTripDate(selectedTrip.tripday)} –{" "}
-                    {formatTripDate(selectedTrip.returnDate)}
-                  </p>
-                </div>
-                <span
-                  className={`trip-status detail-status status-${selectedTrip.status}`}
-                >
-                  <span aria-hidden="true" />
-                  {tripStatuses[selectedTrip.status] || "To go"}
-                </span>
-              </div>
-
-              <div className="packing-section">
-                <div className="packing-section-heading">
-                  <h3>Packing list</h3>
-                  <span>
-                    {selectedItems.filter((item) => item.packed).length}/
-                    {selectedItems.length} packed
+        {trips.length > 0 && (
+          <section className="trip-detail-panel" aria-live="polite">
+            {selectedTrip ? (
+              <>
+                <div className="trip-detail-header">
+                  <div>
+                    <p className="eyebrow">YOUR PACKING LIST</p>
+                    <h2>{selectedTrip.name}</h2>
+                    <p className="trip-detail-location">
+                      <MapPin aria-hidden="true" />
+                      {selectedTrip.destination}
+                      <span className="detail-date-divider" aria-hidden="true">
+                        ·
+                      </span>
+                      <CalendarDays aria-hidden="true" />
+                      {formatTripDate(selectedTrip.tripday)}{" "}
+                      <ArrowRight aria-hidden="true" />
+                      {" "}
+                      {formatTripDate(selectedTrip.returnDate)}
+                    </p>
+                  </div>
+                  <span
+                    className={`trip-status detail-status status-${selectedTrip.status}`}
+                  >
+                    <span aria-hidden="true" />
+                    {tripStatuses[selectedTrip.status] || "To go"}
                   </span>
                 </div>
-                <Form onAddItems={handleAddItem} />
-                <SortBtns
-                  onSortItems={handleUpdateItems}
-                  items={selectedItems}
-                />
-                <Status items={selectedItems} />
-                <ListRender
-                  items={selectedItems}
-                  onToggleItem={handleToggleItem}
-                  onDeleteItem={handleDeleteItem}
-                />
+
+                <div className="packing-section">
+                  <div className="packing-section-heading">
+                    <h3>Packing list</h3>
+                    <span>
+                      {selectedItems.filter((item) => item.packed).length}/
+                      {selectedItems.length} packed
+                    </span>
+                  </div>
+                  <Form onAddItems={handleAddItem} />
+                  <SortBtns
+                    onSortItems={handleUpdateItems}
+                    items={selectedItems}
+                  />
+                  <Status items={selectedItems} />
+                  <ListRender
+                    items={selectedItems}
+                    onToggleItem={handleToggleItem}
+                    onDeleteItem={handleDeleteItem}
+                  />
+                </div>
+              </>
+            ) : (
+              <div className="detail-empty-state">
+                <span className="detail-empty-icon" aria-hidden="true">
+                  <PackageOpen />
+                </span>
+                <h2>No trip selected</h2>
+                <p>Select a trip to view its details and packing list.</p>
               </div>
-            </>
-          ) : (
-            <div className="detail-empty-state">
-              <span className="detail-empty-icon" aria-hidden="true">
-                ◈
-              </span>
-              <h2>Your trip details will live here</h2>
-              <p>Add a trip and its packing list will be ready to organize.</p>
-            </div>
-          )}
-        </section>
+            )}
+          </section>
+        )}
       </section>
       <footer className="app-footer">
         A little more prepared for wherever you go.

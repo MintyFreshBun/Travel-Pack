@@ -2,7 +2,7 @@ import Item from "./ItemList";
 
 function ListRender({ items, onToggleItem, onDeleteItem }) {
   return (
-    <div>
+    <div className="packing-list-scroll">
       <ul className="packing-list">
         {items.map((item) => (
           <Item

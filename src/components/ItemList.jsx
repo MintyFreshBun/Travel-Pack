@@ -1,3 +1,5 @@
+import { Trash2 } from "lucide-react";
+
 function Item({ item, onToggleItem, onDeleteItem }) {
   return (
     <li className="packing-item">
@@ -21,7 +23,7 @@ function Item({ item, onToggleItem, onDeleteItem }) {
         aria-label={`Delete ${item.description}`}
         onClick={() => onDeleteItem(item.id)}
       >
-        X
+        <Trash2 aria-hidden="true" />
       </button>
     </li>
   );

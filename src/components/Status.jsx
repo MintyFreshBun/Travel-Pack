@@ -1,3 +1,5 @@
+import { Luggage, PartyPopper } from "lucide-react";
+
 function Status({ items }) {
   if (!items.length)
     return (
@@ -12,9 +14,18 @@ function Status({ items }) {
 
   return (
     <h2 id="list-heading" className="subtitle is-5 status-message">
-      {percents === 100
-        ? "You got everything! Ready to go ✈!"
-        : `💼 You have ${numItems} items on your List, and You have already packed ${packedItems} (${percents}%)`}
+      {percents === 100 ? (
+        <>
+          <PartyPopper aria-hidden="true" />
+          You got everything! Ready to go!
+        </>
+      ) : (
+        <>
+          <Luggage aria-hidden="true" />
+          You have {numItems} items on your list, and have already packed{" "}
+          {packedItems} ({percents}%)
+        </>
+      )}
     </h2>
   );
 }

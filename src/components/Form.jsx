@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Plus } from "lucide-react";
 
 function Form({ onAddItems }) {
   const [description, setDescription] = useState("");
@@ -41,8 +42,8 @@ function Form({ onAddItems }) {
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
-        <div className="control">
-          <div className="select is-medium">
+        <div className="control app-quantity-control">
+          <div className="select app-quantity-select">
             <select
               aria-label="Quantity"
               value={quantity}
@@ -56,7 +57,11 @@ function Form({ onAddItems }) {
             </select>
           </div>
         </div>
-        <button type="submit" className="button is-primary is-medium">
+        <button
+          type="submit"
+          className="button save-trip-button app-add-item-button"
+        >
+          <Plus aria-hidden="true" />
           Add
         </button>
       </div>

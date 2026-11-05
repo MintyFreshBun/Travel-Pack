@@ -7,8 +7,8 @@
   place-items: center;
   overflow: hidden;
   background:
-    radial-gradient(ellipse at 82% 0%, rgba(220, 235, 222, 0.62), transparent 34rem),
-    #f5f7f4;
+    radial-gradient(ellipse at 82% 0%, var(--color-page-glow), transparent 34rem),
+    var(--color-page);
   inset: 0;
 }
 
@@ -29,9 +29,9 @@
   margin: 0 auto 1.15rem;
   place-items: center;
   border-radius: 1.6rem;
-  background: var(--travel-pack-green);
-  box-shadow: 0 1rem 2.5rem rgba(28, 81, 71, 0.2);
-  color: #fff;
+  background: var(--color-brand);
+  box-shadow: 0 1rem 2.5rem var(--color-shadow-brand-strong);
+  color: var(--color-surface);
   font-size: 1.65rem;
   font-weight: 800;
   letter-spacing: -0.05em;
@@ -40,7 +40,7 @@
 
 .intro-app-name {
   margin: 0;
-  color: #567168;
+  color: var(--color-brand-muted);
   font-size: 1.1rem;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -54,7 +54,7 @@
 
 .intro-welcome h1 {
   margin: 0;
-  color: #173b36;
+  color: var(--color-brand-heading);
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(2.8rem, 8vw, 4.5rem);
   font-weight: 500;
@@ -64,7 +64,7 @@
 
 .intro-tagline {
   margin: 0.85rem 0 0;
-  color: #73827c;
+  color: var(--color-text-muted);
   font-size: 0.95rem;
 }
 

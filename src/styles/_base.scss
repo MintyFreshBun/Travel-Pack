@@ -1,8 +1,77 @@
 :root {
-  --travel-pack-green: #1c5147;
+  --color-brand: #1769e0;
+  --color-brand-hover: #0e50b8;
+  --color-brand-heading: #12355f;
+  --color-brand-muted: #35628f;
+  --color-heading: #173b67;
+  --color-heading-soft: #1b3d66;
+  --color-text-strong: #24476c;
+  --color-text-deep: #294c70;
+  --color-text-body: #203b59;
+  --color-text-item: #405d7b;
+  --color-text-label: #4d6885;
+  --color-text-muted: #5f7893;
+  --color-text-soft: #617b96;
+  --color-text-subtle: #7188a0;
+  --color-text-faint: #94a8bc;
+  --color-surface: #fff;
+  --color-page: #f2f7ff;
+  --color-surface-soft: #f7faff;
+  --color-surface-muted: #edf5ff;
+  --color-border: #dce8f5;
+  --color-border-soft: #e6eef8;
+  --color-border-input: #cbdced;
+  --color-brand-tint: #e5f0ff;
+  --color-brand-soft: #d8eaff;
+  --color-brand-mid: #8bb9f2;
+  --color-brand-accent: #18a6b8;
+  --color-brand-accent-strong: #087f9c;
+  --color-focus: #3182ce;
+  --color-warning: #a95308;
+  --color-warning-dot: #f08a24;
+  --color-warning-surface: #fff4e5;
+  --color-warning-border: #ffd5a1;
+  --color-warning-text: #82400a;
+  --color-status-blue: #2857c5;
+  --color-status-blue-dot: #3978ed;
+  --color-status-blue-surface: #e8efff;
+  --color-status-red: #e05260;
+  --color-status-red-text: #b83a4b;
+  --color-status-red-hover: #982c3c;
+  --color-status-red-button: #d94355;
+  --color-status-red-button-hover: #b72f44;
+  --color-status-red-surface: #fff0f1;
+  --color-status-green: #0b9b78;
+  --color-status-green-icon: #087e72;
+  --color-status-green-detail: #148d87;
+  --color-status-green-location: #138b8d;
+  --color-status-purple: #8146c8;
+  --color-status-purple-surface: #f3eaff;
+  --color-status-neutral: #9baec1;
+  --color-status-neutral-text: #5e748c;
+  --color-status-neutral-surface: #eef3f8;
+  --color-icon-upcoming-surface: #fff0d9;
+  --color-border-card: #e3edf8;
+  --color-border-button: #d5e4f4;
+  --color-border-button-hover: #a9c9ee;
+  --color-border-control: #d3e2f2;
+  --color-border-action: #d7e3ef;
+  --color-placeholder: #7188a0;
+  --color-line: #e8eff7;
+  --color-shadow: rgba(33, 75, 125, 0.08);
+  --color-shadow-soft: rgba(33, 75, 125, 0.055);
+  --color-shadow-brand: rgba(23, 105, 224, 0.2);
+  --color-shadow-brand-strong: rgba(23, 105, 224, 0.28);
+  --color-shadow-modal: rgba(20, 48, 84, 0.24);
+  --color-modal-backdrop: rgba(15, 36, 67, 0.58);
+  --color-page-glow: rgba(99, 179, 255, 0.28);
+  --color-surface-translucent: rgba(255, 255, 255, 0.88);
+  --color-surface-panel-translucent: rgba(255, 255, 255, 0.94);
+  --color-surface-soft-translucent: rgba(255, 255, 255, 0.72);
+  --color-focus-ring: rgba(49, 130, 206, 0.18);
   font-family: "DM Sans", "Avenir Next", Avenir, sans-serif;
-  color: #183330;
-  background: #f5f7f4;
+  color: var(--color-text-body);
+  background: var(--color-page);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 }
@@ -16,8 +85,8 @@ body {
   min-height: 100vh;
   margin: 0;
   background:
-    radial-gradient(ellipse at 82% 0%, rgba(220, 235, 222, 0.62), transparent 34rem),
-    #f5f7f4;
+    radial-gradient(ellipse at 82% 0%, var(--color-page-glow), transparent 34rem),
+    var(--color-page);
 }
 
 button,
@@ -54,7 +123,7 @@ button {
 .brand {
   justify-content: flex-start;
   gap: 0.65rem;
-  color: #173b36;
+  color: var(--color-brand-heading);
   font-size: 1.05rem;
   font-weight: 750;
   letter-spacing: -0.035em;
@@ -67,34 +136,59 @@ button {
   height: 2rem;
   place-items: center;
   border-radius: 0.7rem;
-  background: var(--travel-pack-green);
-  color: #fff;
+  background: var(--color-brand);
+  color: var(--color-surface);
   font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 0;
 }
 
-.add-trip-button,
 .save-trip-button,
 .add-first-trip {
   border: 0;
   border-radius: 0.7rem;
-  background: var(--travel-pack-green);
-  color: white;
+  background: var(--color-brand);
+  color: var(--color-surface);
   font-weight: 650;
-  box-shadow: 0 0.25rem 0.65rem rgba(28, 81, 71, 0.14);
+  box-shadow: 0 0.25rem 0.65rem var(--color-shadow-brand);
 }
 
-.add-trip-button:hover,
 .save-trip-button:hover,
 .add-first-trip:hover {
-  background: #153f37;
-  color: white;
+  background: var(--color-brand-hover);
+  color: var(--color-surface);
+}
+
+.about-button {
+  min-height: 2.4rem;
+  padding-inline: 1rem;
+  border: 1px solid var(--color-border-button);
+  border-radius: 0.7rem;
+  background: var(--color-surface-soft-translucent);
+  color: var(--color-brand-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  box-shadow: none;
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease;
+}
+
+.about-button:hover {
+  border-color: var(--color-border-button-hover);
+  background: var(--color-brand-tint);
+  color: var(--color-brand-hover);
+}
+
+.about-button:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
 }
 
 .app-footer {
   padding: 1.5rem 0 0.5rem;
-  color: #9aa49e;
+  color: var(--color-text-subtle);
   font-size: 0.72rem;
   text-align: center;
 }

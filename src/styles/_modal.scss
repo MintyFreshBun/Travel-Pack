@@ -1,0 +1,260 @@
+.modal-backdrop {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 1rem;
+  background: var(--color-modal-backdrop);
+  backdrop-filter: blur(3px);
+  animation: modal-backdrop-in 180ms ease-out both;
+}
+
+.modal-dialog {
+  width: 100%;
+  max-width: 34rem;
+  margin: auto;
+  outline: none;
+  animation: modal-dialog-in 180ms cubic-bezier(0.2, 0.75, 0.3, 1) both;
+  transform-origin: center;
+}
+
+.modal-backdrop.is-closing {
+  pointer-events: none;
+  animation: modal-backdrop-out 160ms ease-in both;
+}
+
+.modal-backdrop.is-closing .modal-dialog {
+  animation: modal-dialog-out 160ms cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+@keyframes modal-backdrop-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modal-backdrop-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes modal-dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.55rem) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes modal-dialog-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(0.3rem) scale(0.985);
+  }
+}
+
+.modal-dialog.trip-form-modal-dialog {
+  max-width: 64rem;
+}
+
+.modal-dialog:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 4px;
+}
+
+.delete-trip-dialog {
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  background: var(--color-surface);
+  box-shadow: 0 1.25rem 4rem var(--color-shadow-modal);
+}
+
+.about-dialog {
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  background: var(--color-surface);
+  box-shadow: 0 1.25rem 4rem var(--color-shadow-modal);
+}
+
+.about-heading h2 {
+  margin: 0;
+  color: var(--color-heading-soft);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.7rem;
+  font-weight: 500;
+}
+
+.about-heading > p:last-child {
+  margin: 0.55rem 0 0;
+  color: var(--color-text-muted);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+
+.about-details {
+  display: grid;
+  gap: 0.65rem;
+  margin-top: 1.2rem;
+}
+
+.about-details section {
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--color-border-card);
+  border-radius: 0.7rem;
+  background: var(--color-surface-soft);
+}
+
+.about-details h3 {
+  margin: 0;
+  color: var(--color-text-deep);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.about-details p {
+  margin: 0.25rem 0 0;
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.about-details a {
+  color: var(--color-brand-accent-strong);
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.about-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.about-actions .button {
+  min-height: 2.4rem;
+  border-radius: 0.65rem;
+  font-size: 0.82rem;
+  font-weight: 650;
+}
+
+.delete-trip-heading h2 {
+  margin: 0;
+  color: var(--color-heading-soft);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.delete-trip-heading > p:last-child {
+  margin: 0.55rem 0 0;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.delete-trip-details {
+  display: grid;
+  gap: 0.65rem;
+  margin: 1.2rem 0;
+  padding: 1rem;
+  border-radius: 0.7rem;
+  background: var(--color-surface-muted);
+}
+
+.delete-trip-details > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.82rem;
+}
+
+.delete-trip-details dt {
+  color: var(--color-text-muted);
+}
+
+.delete-trip-details dd {
+  margin: 0;
+  color: var(--color-text-deep);
+  font-weight: 650;
+  text-align: right;
+}
+
+.delete-trip-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.65rem;
+}
+
+.delete-trip-actions .button {
+  min-height: 2.55rem;
+  border-radius: 0.65rem;
+  font-size: 0.82rem;
+  font-weight: 650;
+}
+
+.confirm-delete-trip-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-color: var(--color-status-red-button);
+  background: var(--color-status-red-button);
+  color: var(--color-surface);
+}
+
+.confirm-delete-trip-button svg {
+  width: 0.95rem;
+  height: 0.95rem;
+}
+
+.confirm-delete-trip-button:hover {
+  border-color: var(--color-status-red-button-hover);
+  background: var(--color-status-red-button-hover);
+  color: var(--color-surface);
+}
+
+@media (max-width: 480px) {
+  .trip-form-panel,
+  .delete-trip-dialog,
+  .about-dialog {
+    padding: 1.1rem;
+  }
+
+  .delete-trip-details > div {
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  .delete-trip-details dd {
+    text-align: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal-backdrop,
+  .modal-dialog {
+    animation-duration: 1ms !important;
+  }
+}
