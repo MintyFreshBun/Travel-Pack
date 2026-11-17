@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Plus } from "lucide-react";
+import { Minus, Plus } from "lucide-react";
 
 function Form({ onAddItems }) {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
+  const maxQuantity = 20;
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -43,18 +44,34 @@ function Form({ onAddItems }) {
           />
         </div>
         <div className="control app-quantity-control">
-          <div className="select app-quantity-select">
-            <select
-              aria-label="Quantity"
-              value={quantity}
-              onChange={(e) => setQuantity(Number(e.target.value))}
+          <div
+            className="app-quantity-counter"
+            role="group"
+            aria-label="Quantity"
+          >
+            <button
+              type="button"
+              className="button app-quantity-button"
+              aria-label="Decrease quantity"
+              aria-disabled={quantity <= 1}
+              onClick={() => setQuantity((current) => Math.max(1, current - 1))}
             >
-              {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
-                <option value={num} key={num}>
-                  {num}
-                </option>
-              ))}
-            </select>
+              <Minus aria-hidden="true" />
+            </button>
+            <output className="app-quantity-value" aria-live="polite">
+              {quantity}
+            </output>
+            <button
+              type="button"
+              className="button app-quantity-button"
+              aria-label="Increase quantity"
+              aria-disabled={quantity >= maxQuantity}
+              onClick={() =>
+                setQuantity((current) => Math.min(maxQuantity, current + 1))
+              }
+            >
+              <Plus aria-hidden="true" />
+            </button>
           </div>
         </div>
         <button
