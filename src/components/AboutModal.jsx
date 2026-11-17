@@ -208,7 +208,8 @@ function AboutModal({ onClose }) {
                           Website
                         </a>
                         <a
-                          href="/Miguel-Amaral-Portfolio.pdf"
+                          href=""
+                          onClick={(event) => event.preventDefault()}
                           target="_blank"
                           rel="noreferrer"
                         >

@@ -1,26 +1,52 @@
-# Travel-Pack
+# Travel Pack
 
-A trip-planning dashboard built with React and Vite. Create and edit trips,
-track their status and dates, and keep a separate packing list for each trip.
-Trips are saved in your browser using local storage.
+Plan your trips, keep track of the details, and build a packing list for every
+adventure.
 
-## Project structure
+[**Open the live app**](https://mintyfreshbun.github.io/Travel-Pack/)
 
-The app entry point is `src/App.jsx`. Its screen components live in
-`src/components/`, and Sass is organized by UI area in `src/styles/`.
-`src/App.scss` loads Bulma and the app style modules.
+## What you can do
 
-## Color palette
+- Create trips with destinations, travel dates, and a status.
+- Edit, sort, and manage your trips from one dashboard.
+- Add packing-list items, adjust their quantities, and mark them packed.
+- Keep your trip data in your browser with local storage.
 
-The app's named color variables are centralized in the `:root` block in
-`src/styles/_base.scss`. Adjust those values to change the theme; component
-styles reference the variables instead of defining their own colors.
+## Get started
 
-## Development
+Make sure Node.js and npm are installed, then run:
 
 ```sh
 npm install
 npm run dev
-npm run lint
-npm run build
 ```
+
+Vite will print a local URL where you can open the app.
+
+## Available scripts
+
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Start the local development server |
+| `npm run lint` | Run ESLint |
+| `npm run build` | Create a production build in `dist/` |
+| `npm run preview` | Preview the production build locally |
+
+## Built with
+
+React, Vite, Sass, Bulma, and Lucide icons.
+
+## Project structure
+
+```text
+src/
+  components/   App screens and reusable UI
+  styles/       Sass styles organized by UI area
+  App.jsx       Application entry component
+  App.scss      Global stylesheet imports
+```
+
+## Data and privacy
+
+Trips are saved in the browser's local storage. They are available in the same
+browser and device, and are not synced to an account or other devices.
