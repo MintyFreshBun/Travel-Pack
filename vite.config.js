@@ -11,5 +11,5 @@ export default defineConfig({
     },
   },
   plugins: [react()],
-  base:"https://mintyfreshbun.github.io/Travel-Pack/"
+  base:"/Travel-Pack/"
 })
